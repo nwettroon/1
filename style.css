@@ -1,0 +1,727 @@
+/* ========================================
+    1. المتغيرات والألوان الأساسية (Root)
+    ========================================
+*/
+:root {
+    --primary-orange: #f26d21; /* البرتقالي الخاص بالهوية */
+    --light-peach: #fff2e8;   /* لون الخلفية الكريمي */
+    --dark-text: #4a2c1a;      /* لون النصوص البني الداكن */
+    --white: #ffffff;
+    --success-green: #2ecc71;  /* لون السلة والطباعة */
+}
+
+/* ========================================
+    2. قواعد الصفحة العامة (Global Styles)
+    ========================================
+*/
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 120px;
+    top: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-peach);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--dark-text);
+    top: 0px !important;
+    position: static !important;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ========================================
+    3. نظام الترجمة (15 لغة)
+    ========================================
+*/
+#custom-translate {
+    position: fixed;
+    top: 20px; 
+    left: 10px; 
+    z-index: 10000;
+    direction: ltr;
+}
+
+#lang-menu-btn {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid var(--primary-orange);
+    font-weight: bold;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#lang-menu-btn:active {
+    transform: scale(0.9);
+}
+
+#lang-options-card {
+    display: none; 
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: white;
+    width: 220px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 10px 0;
+}
+
+#custom-translate:hover #lang-options-card {
+    display: block;
+}
+
+#lang-options-card a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: var(--dark-text);
+    font-size: 14px;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+#lang-options-card a:hover {
+    background: var(--light-peach);
+    color: var(--primary-orange);
+}
+
+/* ========================================
+    4. الهيكل الرئيسي (Container) - لضمان عدم نحافة الموقع
+    ========================================
+*/
+.container {
+    width: 100%;
+    max-width: 900px; /* العرض المثالي لشاشات العرض والكمبيوتر */
+    background: var(--light-peach);
+    min-height: 100vh;
+    margin: 0 auto;
+    display: block; 
+    position: relative;
+    box-shadow: 0 0 40px rgba(0,0,0,0.05);
+}
+
+/* ========================================
+    5. قسم الهيدر (Hero Section)
+    ========================================
+*/
+.hero-section {
+    width: 100%;
+    height: 300px; 
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 0 0 40px 40px;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(255,242,232,0.1), rgba(255,242,232,0.8));
+    border-radius: 0 0 40px 40px;
+}
+
+/* ========================================
+    6. معلومات المطعم واللوجو
+    ========================================
+*/
+.restaurant-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -70px; 
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    width: 140px !important; 
+    height: 140px !important;
+    object-fit: cover;
+    border-radius: 30px;
+    border: 5px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background-color: white;
+    transition: transform 0.5s ease;
+}
+
+.logo:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.restaurant-info h1 {
+    color: var(--primary-orange);
+    font-size: 28px;
+    margin: 15px 0 5px;
+}
+
+/* ========================================
+    7. شريط الأقسام (Sticky Categories)
+    ========================================
+*/
+.categories {
+    display: flex;
+    overflow-x: auto;
+    justify-content: center; 
+    gap: 15px;
+    padding: 15px 20px;
+    position: -webkit-sticky;
+    position: sticky; 
+    top: 0;
+    z-index: 999; 
+    background: var(--light-peach);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 600px) {
+    .categories { justify-content: flex-start; }
+}
+
+.cat-item {
+    text-align: center;
+    text-decoration: none;
+    min-width: 90px;
+    transition: transform 0.2s ease;
+}
+
+.cat-item:active {
+    transform: scale(0.9);
+}
+
+.cat-item img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-orange);
+    padding: 2px;
+    background: var(--white);
+    object-fit: cover;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cat-item span {
+    display: block;
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--dark-text);
+}
+
+/* ========================================
+    8. بطاقات المنتجات (Product Cards)
+    ========================================
+*/
+.menu-section { padding: 10px 25px 30px; }
+.section-title { text-align: right; font-size: 22px; margin: 25px 0; color: var(--dark-text); }
+.section-title::after { content: ''; display: block; width: 50px; height: 3px; background: var(--primary-orange); margin-top: 5px; }
+
+.product-card {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: var(--white);
+    border-radius: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.product-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(74, 44, 26, 0.12);
+}
+
+.product-card:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+}
+
+.product-details { text-align: right; flex: 1; padding-right: 20px; }
+.product-details h3 { color: var(--primary-orange); font-size: 18px; margin: 0; }
+.price {
+    background: var(--primary-orange);
+    color: var(--white);
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+    transition: 0.3s ease;
+}
+
+.product-card:hover .price {
+    transform: rotate(-3deg);
+}
+
+.product-img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    width: 95px; 
+    height: 95px; 
+}
+
+/* تأثير اللمعان Shine Effect */
+.product-img::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -150%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: 0.7s;
+}
+
+.product-card:hover .product-img::after {
+    left: 150%;
+}
+
+.product-img img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 18px;
+    object-fit: cover;
+    /* --- خصائص تحسين الدقة ومنع التشوه --- */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: auto;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* ========================================
+    9. نظام السلة الخضراء (تعديل: يسار الوسط + أكبر + كلمة دفع)
+    ========================================
+*/
+#cart-icon {
+    position: fixed;
+    top: 50%; /* في منتصف ارتفاع الشاشة */
+    left: 0;  /* في أقصى اليسار */
+    transform: translateY(-50%); /* لموازنة التمركز العمودي */
+    width: 110px; /* زيادة العرض لاستيعاب الكلمة */
+    height: 110px; /* زيادة الارتفاع ليكون واضحاً */
+    background: var(--success-green);
+    border-radius: 0 40px 40px 0; /* حواف دائرية من اليمين فقط ليظهر كتابعة من الحافة */
+    display: flex;
+    flex-direction: column; /* ترتيب الأيقونة والنص عمودياً */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 0 25px rgba(46, 204, 113, 0.4);
+    z-index: 9999;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding-right: 10px; /* إزاحة بسيطة للداخل */
+}
+
+#cart-icon:hover { 
+    width: 130px; /* يتمدد قليلاً عند المرور */
+    background: #27ae60;
+}
+
+#cart-icon img { 
+    width: 45px; /* تكبير حجم أيقونة السلة */
+    filter: brightness(0) invert(1); 
+    margin-bottom: 5px; /* مسافة بين الصورة والكلمة */
+}
+
+/* تنسيق كلمة "دفع" أسفل السلة */
+#cart-icon::after {
+    content: "دفع";
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cart-badge {
+    position: absolute;
+    top: 5px;
+    right: 15px; /* ضبط مكان العداد ليتناسب مع الحجم الجديد */
+    background: var(--primary-orange);
+    color: var(--white);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.cart-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background: var(--white);
+    border-radius: 40px;
+    z-index: 10002;
+    display: none;
+    flex-direction: column;
+    max-height: 80vh;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: zoomIn 0.3s ease;
+}
+
+.cart-card-header {
+    padding: 25px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cart-items-container {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.cart-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 20px;
+}
+
+.cart-footer {
+    padding: 25px;
+    border-top: 1px solid #eee;
+}
+
+.total-price {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--primary-orange);
+    text-align: center;
+}
+
+.checkout-btn {
+    background: var(--success-green);
+    color: var(--white);
+    border: none;
+    padding: 18px;
+    border-radius: 20px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.checkout-btn:active { transform: scale(0.95); }
+
+/* ========================================
+    10. أزرار التحكم (+ و -)
+    ========================================
+*/
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.qty-controls button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--primary-orange);
+    color: var(--white);
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.qty-controls button:active { transform: scale(0.8); }
+
+.qty-controls span {
+    font-size: 18px;
+    font-weight: bold;
+    min-width: 25px;
+    text-align: center;
+}
+
+.size-item-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--white);
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ========================================
+    11. الشاشات الكبيرة (الصور الضخمة والـ Grid)
+    ========================================
+*/
+@media (min-width: 800px) {
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 35px;
+        padding: 25px;
+    }
+
+    .product-card {
+        flex-direction: column !important;
+        text-align: center;
+        height: 100%;
+        padding: 0;
+        overflow: hidden;
+        border-radius: 35px;
+        background: var(--white);
+        box-shadow: 0 10px 25px rgba(74, 44, 26, 0.08);
+        display: flex;
+    }
+
+    .product-img {
+        width: 100% !important;
+        height: 320px !important;
+        flex-shrink: 0;
+        background-color: #f9f9f9;
+    }
+
+    .product-img img {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 35px 35px 0 0 !important;
+        object-fit: cover;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: high-quality;
+    }
+
+    .product-details {
+        text-align: center !important;
+        padding: 25px 15px !important;
+        width: 100%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product-details h3 {
+        font-size: 26px !important;
+        margin: 0 0 15px 0 !important;
+        font-weight: 800;
+    }
+
+    .price {
+        font-size: 20px !important;
+        padding: 12px 30px !important;
+        border-radius: 15px;
+    }
+}
+
+/* ========================================
+    12. المودال والنافذة المنبثقة
+    ========================================
+*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10001;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: var(--light-peach);
+    border-radius: 40px;
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden;
+    position: relative;
+    animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes zoomIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+#modalImg {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 4px solid var(--primary-orange);
+}
+
+.modal-body {
+    padding: 25px;
+    text-align: center;
+}
+
+#modalTitle {
+    color: var(--primary-orange);
+    margin: 0 0 20px;
+    font-size: 26px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255,255,255,0.95);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg);
+    color: var(--primary-orange);
+}
+
+/* ========================================
+    13. تنسيق الطباعة الحرارية (80mm)
+    ========================================
+*/
+@media print {
+    /* إخفاء كل العناصر ما عدا الفاتورة */
+    body * { visibility: hidden; }
+    #printable-receipt, #printable-receipt * { visibility: visible; }
+    
+    #printable-receipt {
+        /* تغيير من absolute إلى relative هو المفتاح لبدء الطباعة من أول ملم */
+        position: relative !important; 
+        display: block !important;
+        width: 80mm;
+padding: 0 !important;
+margin: 0 !important;
+/* سحب المحتوى للأعلى يدوياً لضمان إلغاء أي فراغ يضفه المتصفح */
+margin-top: -10mm !important; 
+height: auto !important;
+overflow: visible;
+color: black;
+background: white;
+font-family: 'Arial', sans-serif;
+}
+
+/* إجبار الطابعة على إلغاء الهوامش والتعامل مع الورق كمستمر */
+@page {
+    margin: 0 !important;
+    size: auto;
+}
+
+/* منع الفراغات الزائدة في نهاية الورقة */
+html, body {
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.main-receipt, .dept-voucher {
+    width: 100%;
+    display: block;
+    page-break-after: always !important; 
+    page-break-inside: avoid;
+    padding: 5px 0; /* تقليل الحشو لتقصير الورقة */
+    border-bottom: none;
+}
+
+/* إخفاء جوجل ترانسليت */
+iframe.skiptranslate, 
+.skiptranslate, 
+#goog-gt-tt, 
+.goog-te-balloon-frame,
+#google_translate_element2,
+.goog-te-banner-frame {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.goog-te-gadget {
+    color: transparent !important;
+}
+
+.goog-logo-link {
+    display: none !important;
+}
+
+body {
+    top: 0 !important;
+}
+
+/* ========================================
+    التعديلات الجديدة (مكان السلة والرسالة المترجمة)
+   ======================================== */
+
+.direction-notice {
+    background: var(--primary-orange);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#cart-icon {
+    position: fixed;
+    top: 50%; 
+    left: 0; 
+    transform: translateY(-50%); 
+    width: 120px; 
+    height: 100px; 
+    background: var(--success-green);
+    border-radius: 0 45px 45px 0; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 0 25px rgba(46, 204, 113, 0.4);
+    z-index: 9999;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+/* باقي كود السلة الذي أرسلته لك سابقاً... */
+

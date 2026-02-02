@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثمرة المذاق المنعش - نظام الطلب الذاتي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cart-icon" onclick="toggleCartCard()">
+    <div class="cart-badge" id="cart-count">0</div>
+    <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Cart">
+</div>
+
+<div id="custom-translate">
+    <div id="lang-menu-btn">
+        <img src="https://flagcdn.com/w40/sa.png" alt="Arabic">
+        <span>اللغة / Language</span>
+    </div>
+    <div id="lang-options-card">
+        <a href="javascript:void(0)" onclick="translatePage('ar')"><img src="https://flagcdn.com/w20/sa.png"> العربية</a>
+        <a href="javascript:void(0)" onclick="translatePage('en')"><img src="https://flagcdn.com/w20/us.png"> English</a>
+        <a href="javascript:void(0)" onclick="translatePage('zh-CN')"><img src="https://flagcdn.com/w20/cn.png"> 中文</a>
+        <a href="javascript:void(0)" onclick="translatePage('hi')"><img src="https://flagcdn.com/w20/in.png"> हिन्दी</a>
+        <a href="javascript:void(0)" onclick="translatePage('id')"><img src="https://flagcdn.com/w20/id.png"> Indonesia</a>
+        <a href="javascript:void(0)" onclick="translatePage('ru')"><img src="https://flagcdn.com/w20/ru.png"> Русский</a>
+        <a href="javascript:void(0)" onclick="translatePage('tl')"><img src="https://flagcdn.com/w20/ph.png"> Tagalog</a>
+        <a href="javascript:void(0)" onclick="translatePage('fr')"><img src="https://flagcdn.com/w20/fr.png"> Français</a>
+        <a href="javascript:void(0)" onclick="translatePage('tr')"><img src="https://flagcdn.com/w20/tr.png"> Türkçe</a>
+        <a href="javascript:void(0)" onclick="translatePage('ms')"><img src="https://flagcdn.com/w20/my.png"> Melayu</a>
+        <a href="javascript:void(0)" onclick="translatePage('fa')"><img src="https://flagcdn.com/w20/ir.png"> فارسی</a>
+        <a href="javascript:void(0)" onclick="translatePage('ja')"><img src="https://flagcdn.com/w20/jp.png"> 日本語</a>
+    </div>
+</div>
+
+<div id="google_translate_element" style="display:none;"></div>
+
+<div class="container">
+    <header class="hero-section"><div class="overlay"></div></header>
+    
+    <div class="restaurant-info">
+        <img src="images/logo.jpg" id="mainLogo" class="logo" onerror="checkOtherFormats(this)">
+        <h1>ثمرة المذاق المنعش</h1>
+    </div>
+
+    <nav class="categories" id="main-nav"></nav>
+    
+    <div id="menu-container"></div>
+</div>
+
+<div id="itemModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close-btn">&times;</span>
+        <img id="modalImg" src="">
+        <div class="modal-body">
+            <h2 id="modalTitle"></h2>
+            <div id="modalSizes"></div>
+        </div>
+    </div>
+</div>
+
+<div id="cartCard" class="cart-card">
+    <div class="cart-card-header">
+        <h3>سلة الطلبات</h3>
+        <span onclick="toggleCartCard()" style="cursor:pointer; font-size: 24px;">&times;</span>
+    </div>
+    <div id="cart-items-container"></div>
+    <div class="cart-footer">
+        <div class="total-price">الإجمالي: <span id="cart-total-price">0</span> ريال</div>
+        <button class="checkout-btn" onclick="printOrder()">دفع وطباعة الفاتورة</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    let cart = [];
+    let orderNumber = localStorage.getItem('orderNumber') ? parseInt(localStorage.getItem('orderNumber')) : 1;
+
+    // وظيفة فحص صيغ اللوجو
+    function checkOtherFormats(img) {
+        const paths = ['images/logo.png', 'images/Logo.jpg', 'images/logo.jpg'];
+        let currentTry = parseInt(img.getAttribute('data-try') || 0);
+        if (currentTry < paths.length) {
+            img.setAttribute('data-try', currentTry + 1);
+            img.src = paths[currentTry];
+        }
+    }
+
+    // جلب البيانات من JSON
+    async function initMenu() {
+        try {
+            const response = await fetch('data.json?v=' + new Date().getTime());
+            if (!response.ok) throw new Error("Data file not found");
+            const data = await response.json();
+            renderApp(data.categories);
+        } catch (error) {
+            console.error("Fetch Error:", error);
+            document.getElementById('menu-container').innerHTML = "<h2 style='text-align:center; padding:50px;'>يرجى تشغيل Live Server والتأكد من ملف data.json</h2>";
+        }
+    }
+
+    // بناء واجهة المستخدم
+    function renderApp(categories) {
+        const nav = document.getElementById('main-nav');
+        const container = document.getElementById('menu-container');
+        nav.innerHTML = ''; container.innerHTML = '';
+
+        categories.forEach((cat, idx) => {
+            const safeId = `section-${idx}`;
+            nav.innerHTML += `<a href="#${safeId}" class="cat-item"><span>${cat.name}</span></a>`;
+            
+            let sectionHtml = `<div id="${safeId}" class="menu-section"><h2 class="section-title">${cat.name}</h2><div class="product-grid">`;
+            cat.items.forEach(item => {
+                const firstPrice = (item.variants && item.variants[0]) ? item.variants[0].price : 0;
+                const itemData = encodeURIComponent(JSON.stringify(item));
+                sectionHtml += `
+                    <div class="product-card" onclick="openItem('${itemData}', '${cat.name}')">
+                        <div class="product-img"><img src="images/${item.image}" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+                        <div class="product-details"><h3>${item.name}</h3><span class="price">من ${firstPrice} ريال</span></div>
+                    </div>`;
+            });
+            sectionHtml += `</div></div>`;
+            container.innerHTML += sectionHtml;
+        });
+    }
+
+    // فتح تفاصيل الصنف
+    function openItem(encodedData, type) {
+        const item = JSON.parse(decodeURIComponent(encodedData));
+        document.getElementById('modalTitle').innerText = item.name;
+        document.getElementById('modalImg').src = `images/${item.image}`;
+        
+        let html = "";
+        item.variants.forEach(v => {
+            let currentQty = getQty(item.name, v.size);
+            let safeID = (item.name + v.size).replace(/\s/g, '');
+            html += `<div class="size-item-control"><span>${v.size} - ${v.price} ريال</span><div class="qty-controls">
+                <button onclick="changeQty('${item.name}', '${v.size}', ${v.price}, -1, '${type}')">-</button>
+                <span id="qty-${safeID}">${currentQty}</span>
+                <button onclick="changeQty('${item.name}', '${v.size}', ${v.price}, 1, '${type}')">+</button>
+            </div></div>`;
+        });
+        document.getElementById('modalSizes').innerHTML = html;
+        document.getElementById('itemModal').style.display = "flex";
+    }
+
+    function getQty(name, size) {
+        let item = cart.find(i => i.name === name && i.size === size);
+        return item ? item.quantity : 0;
+    }
+
+    function changeQty(name, size, price, delta, type) {
+        let index = cart.findIndex(i => i.name === name && i.size === size);
+        if (index > -1) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) cart.splice(index, 1);
+        } else if (delta > 0) {
+            cart.push({ name, size, price, quantity: 1, type: type });
+        }
+        updateUI();
+        let safeID = (name + size).replace(/\s/g, '');
+        let qtySpan = document.getElementById(`qty-${safeID}`);
+        if(qtySpan) qtySpan.innerText = getQty(name, size);
+    }
+
+    // تحديث السلة
+    function updateUI() {
+        document.getElementById('cart-count').innerText = cart.reduce((a, b) => a + b.quantity, 0);
+        document.getElementById('cart-total-price').innerText = cart.reduce((a, b) => a + (b.price * b.quantity), 0);
+        
+        let container = document.getElementById('cart-items-container');
+        container.innerHTML = `<div class="direction-notice">توجه إلى الكاشير للدفع</div>`;
+        
+        cart.forEach(item => {
+            container.innerHTML += `<div class="cart-item-row" style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee;">
+                <div><b>${item.name}</b> (${item.size})</div>
+                <div class="qty-controls">
+                    <button onclick="changeQty('${item.name}', '${item.size}', ${item.price}, -1, '${item.type}')">-</button>
+                    <span style="margin:0 10px;">${item.quantity}</span>
+                    <button onclick="changeQty('${item.name}', '${item.size}', ${item.price}, 1, '${item.type}')">+</button>
+                </div></div>`;
+        });
+    }
+
+    // الطباعة
+    function printOrder() {
+        if (cart.length === 0) return alert("السلة فارغة!");
+        let printWindow = window.open('', '_blank');
+        let html = `<html><head><style>body { font-family: sans-serif; text-align: center; width: 80mm; margin: 0 auto; direction: rtl; }</style></head><body>
+            <h2>ثمرة المذاق المنعش</h2><h3>طلب رقم: #${orderNumber}</h3><hr>`;
+        cart.forEach(item => { html += `<div>${item.name} (${item.size}) x${item.quantity}</div>`; });
+        html += `<h3>الإجمالي: ${document.getElementById('cart-total-price').innerText} ريال</h3></body></html>`;
+        printWindow.document.write(html); printWindow.document.close();
+        setTimeout(() => { printWindow.print(); printWindow.close(); orderNumber++; localStorage.setItem('orderNumber', orderNumber); cart = []; updateUI(); }, 500);
+    }
+
+    function toggleCartCard() { 
+        let card = document.getElementById('cartCard'); 
+        card.style.display = (card.style.display === "flex") ? "none" : "flex"; 
+    }
+    
+    function closeModal() { document.getElementById('itemModal').style.display = "none"; }
+    
+    function translatePage(langCode) {
+        var select = document.querySelector('select.goog-te-combo');
+        if (select) { select.value = langCode; select.dispatchEvent(new Event('change')); }
+    }
+    
+    function googleTranslateElementInit() { 
+        new google.translate.TranslateElement({pageLanguage: 'ar'}, 'google_translate_element'); 
+    }
+
+    // الكود الذي كان يسبب الانهيار تم إصلاحه هنا
+    setInterval(function() {
+        try {
+            var f = document.querySelector(".skiptranslate");
+            if (f) f.style.display = "none";
+            document.body.style.top = "0px";
+        } catch (e) {}
+    }, 500);
+
+    initMenu();
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

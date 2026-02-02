@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثمرة المذاق المنعش - نظام الطلب الذاتي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cart-icon" onclick="toggleCartCard()">
+    <div class="cart-badge" id="cart-count">0</div>
+    <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Cart">
+</div>
+
+<div id="custom-translate">
+    <div id="lang-menu-btn">
+        <img src="https://flagcdn.com/w40/sa.png" alt="Arabic">
+        <span>اللغة / Language</span>
+    </div>
+    <div id="lang-options-card">
+        <a href="javascript:void(0)" onclick="translatePage('ar')"><img src="https://flagcdn.com/w20/sa.png"> العربية</a>
+        <a href="javascript:void(0)" onclick="translatePage('en')"><img src="https://flagcdn.com/w20/us.png"> English</a>
+        <a href="javascript:void(0)" onclick="translatePage('zh-CN')"><img src="https://flagcdn.com/w20/cn.png"> 中文</a>
+        <a href="javascript:void(0)" onclick="translatePage('hi')"><img src="https://flagcdn.com/w20/in.png"> हिन्दी</a>
+        <a href="javascript:void(0)" onclick="translatePage('fa')"><img src="https://flagcdn.com/w20/ir.png"> فارسی</a>
+        <a href="javascript:void(0)" onclick="translatePage('ja')"><img src="https://flagcdn.com/w20/jp.png"> 日本語</a>
+    </div>
+</div>
+
+<div id="google_translate_element" style="display:none;"></div>
+
+<div class="container">
+    <header class="hero-section"><div class="overlay"></div></header>
+    <div class="restaurant-info">
+        <img src="images/logo.jpg" id="mainLogo" class="logo" onerror="checkOtherFormats(this)">
+        <h1>ثمرة المذاق المنعش</h1>
+    </div>
+    <nav class="categories" id="main-nav"></nav>
+    <div id="menu-container"></div>
+</div>
+
+<div id="itemModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close-btn">&times;</span>
+        <img id="modalImg" src="">
+        <div class="modal-body"><h2 id="modalTitle"></h2><div id="modalSizes"></div></div>
+    </div>
+</div>
+
+<div id="cartCard" class="cart-card">
+    <div class="cart-card-header">
+        <h3>سلة الطلبات</h3>
+        <span onclick="toggleCartCard()" style="cursor:pointer; font-size: 24px;">&times;</span>
+    </div>
+    <div id="cart-items-container"></div>
+    <div class="cart-footer">
+        <div class="total-price">الإجمالي: <span id="cart-total-price">0</span> ريال</div>
+        <button class="checkout-btn" onclick="printOrder()">دفع وطباعة الفاتورة</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    let cart = [];
+    let orderNumber = localStorage.getItem('orderNumber') ? parseInt(localStorage.getItem('orderNumber')) : 1;
+
+    async function initMenu() {
+        try {
+            const response = await fetch('data.json?v=' + new Date().getTime());
+            const data = await response.json();
+            if (data && data.categories) renderApp(data.categories);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    function renderApp(categories) {
+        const nav = document.getElementById('main-nav');
+        const container = document.getElementById('menu-container');
+        nav.innerHTML = ''; container.innerHTML = '';
+
+        categories.forEach((cat, idx) => {
+            const safeId = `section-${idx}`;
+            nav.innerHTML += `<a href="#${safeId}" class="cat-item"><span>${cat.name}</span></a>`;
+            let sectionHtml = `<div id="${safeId}" class="menu-section"><h2 class="section-title">${cat.name}</h2><div class="product-grid">`;
+            cat.items.forEach(item => {
+                const itemData = encodeURIComponent(JSON.stringify(item));
+                sectionHtml += `
+                    <div class="product-card" onclick="openItem('${itemData}', '${cat.name}')">
+                        <div class="product-img"><img src="images/${item.image}" onerror="this.src='https://placehold.jp/150x150.png'"></div>
+                        <div class="product-details"><h3>${item.name}</h3><span class="price">من ${item.variants[0].price} ريال</span></div>
+                    </div>`;
+            });
+            sectionHtml += `</div></div>`;
+            container.innerHTML += sectionHtml;
+        });
+    }
+
+    function toggleCartCard() {
+        const card = document.getElementById('cartCard');
+        card.style.display = (card.style.display === "flex") ? "none" : "flex";
+    }
+
+    function openItem(encodedData, type) {
+        const item = JSON.parse(decodeURIComponent(encodedData));
+        document.getElementById('modalTitle').innerText = item.name;
+        document.getElementById('modalImg').src = `images/${item.image}`;
+        let html = "";
+        item.variants.forEach(v => {
+            html += `<div class="size-item-control"><span>${v.size} - ${v.price} ريال</span>
+                <button onclick="addToCart('${item.name}', '${v.size}', ${v.price}, '${type}')">إضافة</button></div>`;
+        });
+        document.getElementById('modalSizes').innerHTML = html;
+        document.getElementById('itemModal').style.display = "flex";
+    }
+
+    function addToCart(name, size, price, type) {
+        cart.push({name, size, price, quantity: 1, type});
+        updateUI();
+        closeModal();
+    }
+
+    function updateUI() {
+        document.getElementById('cart-count').innerText = cart.length;
+        document.getElementById('cart-total-price').innerText = cart.reduce((a,b) => a + b.price, 0);
+        let cont = document.getElementById('cart-items-container');
+        cont.innerHTML = "";
+        cart.forEach(item => {
+            cont.innerHTML += `<div class="cart-item-row"><b>${item.name}</b> - ${item.price} ريال</div>`;
+        });
+    }
+
+    function closeModal() { document.getElementById('itemModal').style.display = "none"; }
+    function checkOtherFormats(img) { img.src = 'images/logo.png'; }
+    function translatePage(lang) { /* كود الترجمة */ }
+    function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'ar'}, 'google_translate_element'); }
+
+    window.onload = initMenu;
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
