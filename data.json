@@ -5,43 +5,31 @@
       "items": [
         {
           "name": "رمان",
-          "image": "pomegranate.jpg",
+          "image": "رمان.jpg",
           "variants": [
             {
               "size": "صغير",
-              "price": 5
-            },
-            {
-              "size": "كبير",
               "price": 8
             }
           ]
         },
         {
           "name": "برتقال",
-          "image": "orange.jpg",
+          "image": "برتقال.jpg",
           "variants": [
             {
               "size": "صغير",
-              "price": 4
-            },
-            {
-              "size": "كبير",
-              "price": 7
+              "price": 8
             }
           ]
         },
         {
           "name": "مانجو",
-          "image": "mango.jpg",
+          "image": "مانجو.jpg",
           "variants": [
             {
               "size": "صغير",
-              "price": 6
-            },
-            {
-              "size": "كبير",
-              "price": 9
+              "price": 8
             }
           ]
         }
@@ -51,67 +39,12 @@
       "name": "شاورما",
       "items": [
         {
-          "name": "شاورما دجاج",
-          "image": "chicken.jpg",
+          "name": "عربي",
+          "image": "عربي.jpg",
           "variants": [
             {
               "size": "عادي",
-              "price": 10
-            },
-            {
-              "size": "كبير",
               "price": 15
-            }
-          ]
-        },
-        {
-          "name": "شاورما لحم",
-          "image": "meat.jpg",
-          "variants": [
-            {
-              "size": "عادي",
-              "price": 12
-            },
-            {
-              "size": "كبير",
-              "price": 17
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "مشروبات",
-      "items": [
-        {
-          "name": "قهوة",
-          "image": "coffee.jpg",
-          "variants": [
-            {
-              "size": "صغير",
-              "price": 3
-            },
-            {
-              "size": "وسط",
-              "price": 4
-            },
-            {
-              "size": "كبير",
-              "price": 5
-            }
-          ]
-        },
-        {
-          "name": "شاي",
-          "image": "tea.jpg",
-          "variants": [
-            {
-              "size": "صغير",
-              "price": 2
-            },
-            {
-              "size": "وسط",
-              "price": 3
             }
           ]
         }
