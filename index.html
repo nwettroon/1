@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثمرة المذاق المنعش</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body dir="rtl">
+    <!-- Header Section -->
+    <header class="header-section">
+        <div class="logo-section">
+            <img src="images/logo.jpg" alt="شعار ثمرة المذاق المنعش" class="logo" id="headerLogo">
+            <h1 class="restaurant-name" id="restaurantName">ثمرة المذاق المنعش</h1>
+        </div>
+        <div class="categories-section" id="categoriesSection"></div>
+    </header>
+
+    <!-- Categories Bar (Fixed) -->
+    <nav class="categories-bar" id="categoriesBar">
+        <div class="categories-scroll">
+            <div id="categoriesList"></div>
+        </div>
+        <button class="admin-btn" id="adminBtn" title="لوحة التحكم">⚙️</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div id="productsContainer"></div>
+    </main>
+
+    <!-- Cart Button -->
+    <div class="cart-fixed">
+        <button class="cart-btn" id="cartBtn">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-label" id="cartLabel">ادفع</span>
+            <span class="cart-count" id="cartCount">0</span>
+        </button>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalProductImg" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalProductName"></h2>
+                    <div class="sizes-section">
+                        <label id="sizesLabel">المقاسات:</label>
+                        <div id="productSizesList" class="sizes-list"></div>
+                    </div>
+                    <div class="quantity-section" style="display: none;">
+                        <button class="qty-btn" id="qtyMinus">−</button>
+                        <span class="qty-display" id="qtyDisplay">1</span>
+                        <button class="qty-btn" id="qtyPlus">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content cart-modal-content">
+            <button class="close-modal" id="closeCart">&times;</button>
+            <h2 id="cartTitle">السلة</h2>
+            <p class="cart-subtitle" id="cartSubtitle">توجه الى الكاشير للدفع</p>
+            <div id="cartItemsList"></div>
+            <div class="cart-total">
+                <span id="totalLabel">الإجمالي:</span>
+                <span id="totalPrice">0</span> <span id="currencyLabel">ريال</span>
+            </div>
+            <button class="pay-btn" id="payBtn">دفع</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content admin-modal-content">
+            <button class="close-modal" id="closeAdmin">&times;</button>
+            <div class="admin-panel">
+                <h2 id="adminTitle">لوحة التحكم</h2>
+                
+                <div class="admin-section">
+                    <h3 id="categoriesManageTitle">إدارة الأقسام</h3>
+                    <button class="add-btn" id="addCategoryBtn">+ إضافة قسم</button>
+                    <div id="adminCategoriesList"></div>
+                </div>
+
+                <div class="admin-section">
+                    <h3 id="productsManageTitle">إدارة المنتجات</h3>
+                    <select id="categorySelect" onchange="renderAdminPanel()"></select>
+                    <button class="add-btn" id="addProductBtn">+ إضافة منتج</button>
+                    <div id="adminProductsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal" id="editProductModal">
+        <div class="modal-content form-modal">
+            <h2 id="editProductTitle">تعديل المنتج</h2>
+            <button class="close-modal" id="closeEditProduct">&times;</button>
+            
+            <form id="editProductForm">
+                <!-- بيانات المنتج -->
+                <div class="form-section">
+                    <label id="editProductCategoryLabel">القسم المستهدف:</label>
+                    <select id="productCategory" required></select>
+                </div>
+
+                <div class="form-section">
+                    <input type="text" id="productName" placeholder="اسم المنتج (مثال: شاورما)" required>
+                </div>
+
+                <!-- فاصل للأحجام والأسعار -->
+                <div class="sizes-section-divider">
+                    <h3 id="sizesAndPricesTitle">الأحجام والأسعار</h3>
+                </div>
+
+                <div id="editSizesList" class="sizes-list"></div>
+
+                <button type="button" class="add-more-btn" id="addSizeBtn">+ أضف حجم أخر</button>
+
+                <div class="form-footer">
+                    <button type="button" class="cancel-btn" id="cancelEditProduct">إلغاء</button>
+                    <button type="submit" class="save-btn" id="saveEditProductBtn">حفظ التعديلات</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Form Modal (Add/Edit Category/Product) -->
+    <div class="modal" id="adminFormModal">
+        <div class="modal-content form-modal">
+            <h2 id="adminFormTitle">إضافة</h2>
+            <button class="close-modal" id="closeAdminForm">&times;</button>
+            <form id="adminForm">
+                <div class="form-section" id="adminProductCategoryGroup">
+                    <label id="adminProductCategoryLabel">القسم المستهدف:</label>
+                    <select id="adminProductCategory" required></select>
+                </div>
+
+                <div class="form-section">
+                    <input type="text" id="adminItemName" placeholder="الاسم" required>
+                </div>
+
+                <div class="form-section" id="adminProductPriceGroup">
+                    <input type="number" id="adminProductPrice" placeholder="السعر الأساسي (ريال)" step="0.01">
+                </div>
+
+                <div class="form-section">
+                    <input type="text" id="adminItemImage" placeholder="اسم ملف الصورة (مثال: product.jpg)">
+                </div>
+
+                <div class="form-footer">
+                    <button type="button" class="cancel-btn" id="cancelAdminForm">إلغاء</button>
+                    <button type="submit" class="save-btn" id="saveAdminForm">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
