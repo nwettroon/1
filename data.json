@@ -29,6 +29,11 @@
       "id": 7,
       "name": "فطائر",
       "image": "images/فطائر.jpg"
+    },
+    {
+      "id": 8,
+      "name": "فلافل",
+      "image": "images/فلافل.jpg"
     }
   ],
   "products": [
@@ -40,8 +45,24 @@
       "basePrice": 8,
       "sizes": [
         {
-          "name": "افتراضي",
+          "name": "صغير",
           "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
         }
       ]
     },
@@ -306,13 +327,13 @@
     },
     {
       "id": 20,
-      "name": "شورما شامي",
+      "name": "شاورما شامي",
       "categoryId": 3,
-      "image": "images/شورما شامي.jpg",
+      "image": "images/شاورما شامي.jpg",
       "basePrice": 8,
       "sizes": [
         {
-          "name": "افتراضي",
+          "name": "عادي",
           "price": 8
         }
       ]
@@ -594,6 +615,916 @@
         {
           "name": "عادي",
           "price": 10
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "name": "رنش",
+      "categoryId": 2,
+      "image": "images/رنش.jpg",
+      "basePrice": 23,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 23
+        },
+        {
+          "name": "كبيره",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "name": "مانجو",
+      "categoryId": 4,
+      "image": "images/مانجو.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "name": "فرنسي",
+      "categoryId": 4,
+      "image": "images/فرنسي.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "name": "برتقال",
+      "categoryId": 4,
+      "image": "images/برتقال.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "name": "طبقات",
+      "categoryId": 4,
+      "image": "images/طبقات.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "name": "فروله",
+      "categoryId": 4,
+      "image": "images/فروله.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "name": "ليمون",
+      "categoryId": 4,
+      "image": "images/ليمون.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "name": "شمندر فواكه",
+      "categoryId": 4,
+      "image": "images/شمندر فواكه.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "name": "افكادو مكسرات",
+      "categoryId": 4,
+      "image": "images/افكادو مكسرات.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "name": "لمسه",
+      "categoryId": 4,
+      "image": "images/لمسه.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "name": "حمضيات",
+      "categoryId": 4,
+      "image": "images/حمضيات.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "name": "موز",
+      "categoryId": 4,
+      "image": "images/موز.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "name": "كيوي",
+      "categoryId": 4,
+      "image": "images/كيوي.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "name": "جوافه",
+      "categoryId": 4,
+      "image": "images/جوافه.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "name": "عنب",
+      "categoryId": 4,
+      "image": "images/عنب.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "name": "بابايا",
+      "categoryId": 4,
+      "image": "images/بابايا.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "name": "اوريو",
+      "categoryId": 4,
+      "image": "images/اوريو.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "name": "شمام",
+      "categoryId": 4,
+      "image": "images/شمام.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "name": "عوار",
+      "categoryId": 4,
+      "image": "images/عوار.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "name": "توت",
+      "categoryId": 4,
+      "image": "images/توت.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "name": "روز دي",
+      "categoryId": 4,
+      "image": "images/روز دي.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "name": "فيتامين سي",
+      "categoryId": 4,
+      "image": "images/فيتامين سي.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "name": "لوتس",
+      "categoryId": 4,
+      "image": "images/لوتس.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "name": "اصفهاني",
+      "categoryId": 4,
+      "image": "images/اصفهاني.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "name": "منجاوي",
+      "categoryId": 4,
+      "image": "images/منجاوي.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "name": "كركديه",
+      "categoryId": 4,
+      "image": "images/كركديه.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "name": "جي مطور",
+      "categoryId": 4,
+      "image": "images/جي مطور.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "name": "ملكي",
+      "categoryId": 4,
+      "image": "images/ملكي.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "name": "زنجبيل بالحمضيات",
+      "categoryId": 4,
+      "image": "images/زنجبيل بالحمضيات.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "name": "سندوتش فلافل",
+      "categoryId": 8,
+      "image": "images/سندوتش فلافل.jpg",
+      "basePrice": 5,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 5
+        },
+        {
+          "name": "كل شي",
+          "price": 7
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "name": "سندوتش فول",
+      "categoryId": 8,
+      "image": "images/سندوتش فول.jpg",
+      "basePrice": 5,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 5
+        },
+        {
+          "name": "كل شي",
+          "price": 7
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "name": "صحن فول",
+      "categoryId": 8,
+      "image": "images/صحن فول.jpg",
+      "basePrice": 5,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 5
+        },
+        {
+          "name": "كبير",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "name": "صحن مشكل",
+      "categoryId": 8,
+      "image": "images/صحن مشكل.jpg",
+      "basePrice": 25,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "name": "سلطة فواكه",
+      "categoryId": 4,
+      "image": "images/سلطة فواكه.jpg",
+      "basePrice": 15,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 15
+        },
+        {
+          "name": "كبير",
+          "price": 20
         }
       ]
     }

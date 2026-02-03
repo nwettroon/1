@@ -9,6 +9,8 @@ let editingProductId = null;
 let currentSizeQuantities = {};
 let adminFormMode = null;
 let editingCategoryId = null;
+// Flag to indicate admin paste action was used for sizes
+let adminSizesClipboardUsed = false;
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', function() {
@@ -92,12 +94,26 @@ function setupEventListeners() {
     document.getElementById('closeEditProduct').addEventListener('click', closeEditProductModal);
     document.getElementById('cancelEditProduct').addEventListener('click', closeEditProductModal);
     document.getElementById('editProductForm').addEventListener('submit', saveEditedProduct);
+    const copyBtn = document.getElementById('copySizesBtn');
+    if (copyBtn) copyBtn.addEventListener('click', copySizes);
+    const pasteBtn = document.getElementById('pasteSizesBtn');
+    if (pasteBtn) pasteBtn.addEventListener('click', pasteSizesIntoEdit);
+    const pasteAdminBtn = document.getElementById('pasteSizesAdminBtn');
+    if (pasteAdminBtn) pasteAdminBtn.addEventListener('click', pasteSizesIntoAdminForm);
     document.getElementById('addSizeBtn').addEventListener('click', addNewSize);
 
     // Admin Form Modal
     document.getElementById('closeAdminForm').addEventListener('click', closeAdminForm);
     document.getElementById('cancelAdminForm').addEventListener('click', closeAdminForm);
     document.getElementById('adminForm').addEventListener('submit', saveAdminForm);
+    const saveAdminBtn = document.getElementById('saveAdminForm');
+    if (saveAdminBtn) {
+        saveAdminBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // call save handler directly in case form submit is blocked by browser validation
+            try { saveAdminForm(new Event('submit')); } catch (err) { console.error(err); }
+        });
+    }
     
     // Close modal on outside click
     document.getElementById('productModal').addEventListener('click', function(e) {
@@ -830,9 +846,27 @@ function saveAdminForm(e) {
     if (adminFormMode === 'category-edit' && editingCategoryId) {
         const category = categories.find(c => c.id === editingCategoryId);
         if (!category) return;
+        const oldName = category.name;
+        // Update name
         category.name = name;
         if (imageValue) {
             category.image = imageValue.startsWith('images/') ? imageValue : 'images/' + imageValue;
+        } else if (category.image) {
+            // If the existing image filename contains the old name, update it to the new name
+            try {
+                const parts = category.image.split('/');
+                const filename = parts.pop();
+                const idx = filename.lastIndexOf('.');
+                const base = idx !== -1 ? filename.substring(0, idx) : filename;
+                const ext = idx !== -1 ? filename.substring(idx) : '';
+                if (base === oldName) {
+                    const newFilename = name + ext;
+                    parts.push(newFilename);
+                    category.image = parts.join('/');
+                }
+            } catch (e) {
+                // ignore errors and keep existing image
+            }
         }
         saveData();
         renderCategories();
@@ -845,6 +879,18 @@ function saveAdminForm(e) {
         const categoryId = parseInt(categorySelect.value);
         const basePrice = parseFloat(priceInput.value);
         if (!categoryId || isNaN(basePrice)) return;
+        // By default use single size 'عادي'. Use clipboard sizes ONLY if admin explicitly pasted them.
+        let sizesForNew = [{ name: 'عادي', price: basePrice }];
+        if (adminSizesClipboardUsed) {
+            try {
+                const clipboard = JSON.parse(localStorage.getItem('sizesClipboard') || 'null');
+                if (clipboard && Array.isArray(clipboard) && clipboard.length > 0) {
+                    sizesForNew = clipboard.map(s => ({ name: s.name || 'عادي', price: (typeof s.price === 'number' ? s.price : basePrice) }));
+                }
+            } catch (e) {
+                console.error('خطأ عند قراءة الحافظة:', e);
+            }
+        }
 
         const newProduct = {
             id: Math.max(...products.map(p => p.id), 0) + 1,
@@ -852,15 +898,79 @@ function saveAdminForm(e) {
             categoryId: categoryId,
             image: imageValue ? (imageValue.startsWith('images/') ? imageValue : 'images/' + imageValue) : 'images/default.jpg',
             basePrice: basePrice,
-            sizes: [
-                { name: 'افتراضي', price: basePrice }
-            ]
+            sizes: sizesForNew
         };
         products.push(newProduct);
         saveData();
         renderProducts();
         renderAdminPanel();
         closeAdminForm();
+        // reset flag after use so future adds won't auto-apply clipboard
+        adminSizesClipboardUsed = false;
+    }
+}
+
+// Copy current editing product sizes to localStorage clipboard
+function copySizes() {
+    if (!editingProductId) {
+        console.warn('لا يوجد منتج مفتوح للنسخ');
+        return;
+    }
+    const product = products.find(p => p.id === editingProductId);
+    if (!product || !product.sizes) {
+        console.warn('لا توجد أحجام للنسخ');
+        return;
+    }
+    try {
+        localStorage.setItem('sizesClipboard', JSON.stringify(product.sizes));
+        console.log('تم نسخ الأحجام إلى الحافظة');
+    } catch (e) {
+        console.error(e);
+        console.error('تعذر نسخ الأحجام');
+    }
+}
+
+// Paste clipboard sizes into current edit product and re-render
+function pasteSizesIntoEdit() {
+    if (!editingProductId) {
+        console.warn('لا يوجد منتج مفتوح للصق');
+        return;
+    }
+    try {
+        const clipboard = JSON.parse(localStorage.getItem('sizesClipboard') || 'null');
+        if (!clipboard || !Array.isArray(clipboard) || clipboard.length === 0) {
+            console.warn('لا توجد أحجام في الحافظة');
+            return;
+        }
+        const product = products.find(p => p.id === editingProductId);
+        product.sizes = clipboard.map(s => ({ name: s.name || 'عادي', price: (typeof s.price === 'number' ? s.price : 0) }));
+        renderSizesForEdit(product);
+        console.log('تم لصق الأحجام');
+    } catch (e) {
+        console.error(e);
+        console.error('تعذر لصق الأحجام');
+    }
+}
+
+// Paste sizes into admin add form preview area (doesn't save until form submit)
+function pasteSizesIntoAdminForm() {
+    try {
+        const clipboard = JSON.parse(localStorage.getItem('sizesClipboard') || 'null');
+        const preview = document.getElementById('adminSizesPreview');
+        if (!clipboard || !Array.isArray(clipboard) || clipboard.length === 0) {
+            if (preview) preview.textContent = 'لا توجد أحجام في الحافظة';
+            console.warn('لا توجد أحجام في الحافظة');
+            return;
+        }
+        if (preview) {
+            preview.innerHTML = clipboard.map(s => `${s.name || 'عادي'}: ${formatPrice(typeof s.price === 'number' ? s.price : 0)}`).join(' · ');
+        }
+        // mark that admin explicitly pasted sizes (so saveAdminForm will use them)
+        adminSizesClipboardUsed = true;
+        console.log('تم لصق المعاينة في النموذج');
+    } catch (e) {
+        console.error(e);
+        console.error('تعذر لصق الأحجام في النموذج');
     }
 }
 
@@ -1148,9 +1258,28 @@ function saveEditedProduct(e) {
     }
     
     // تحديث بيانات المنتج
+    const oldProductName = product.name;
     product.name = newName;
     product.categoryId = newCategoryId;
     product.basePrice = product.sizes[0].price;
+
+    // If product has an image whose filename equals the old product name, update it to the new name
+    if (product.image) {
+        try {
+            const parts = product.image.split('/');
+            const filename = parts.pop();
+            const idx = filename.lastIndexOf('.');
+            const base = idx !== -1 ? filename.substring(0, idx) : filename;
+            const ext = idx !== -1 ? filename.substring(idx) : '';
+            if (base === oldProductName) {
+                const newFilename = newName + ext;
+                parts.push(newFilename);
+                product.image = parts.join('/');
+            }
+        } catch (e) {
+            // ignore and keep existing image
+        }
+    }
     
     saveData();
     renderProducts();
