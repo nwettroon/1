@@ -1,0 +1,333 @@
+{
+  "categories": [
+    {
+      "id": 2,
+      "name": "بيتزا",
+      "image": "images/بيبروني.jpg"
+    },
+    {
+      "id": 3,
+      "name": "الشورما",
+      "image": "images/شورما.jpg"
+    },
+    {
+      "id": 4,
+      "name": "عصائر",
+      "image": "images/عصائر.jpg"
+    },
+    {
+      "id": 5,
+      "name": "كباب",
+      "image": "images/كباب.jpg"
+    },
+    {
+      "id": 6,
+      "name": "حلا وساخن",
+      "image": "images/حلا وساخن.jpg"
+    }
+  ],
+  "products": [
+    {
+      "id": 4,
+      "name": "رمان",
+      "categoryId": 4,
+      "image": "images/رمان.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "افتراضي",
+          "price": 8
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "عربي",
+      "categoryId": 3,
+      "image": "images/عربي.jpg",
+      "basePrice": 15,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 15
+        },
+        {
+          "name": "وسط",
+          "price": 20
+        },
+        {
+          "name": "كبير",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "باربكيو",
+      "categoryId": 2,
+      "image": "images/باربكيو.jpg",
+      "basePrice": 23,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 23
+        },
+        {
+          "name": "كبير",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "فليمزو",
+      "categoryId": 2,
+      "image": "images/فليمزو.jpg",
+      "basePrice": 23,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 23
+        },
+        {
+          "name": "كبير",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "عش البلبل",
+      "categoryId": 2,
+      "image": "images/عش البلبل.jpg",
+      "basePrice": 15,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 15
+        },
+        {
+          "name": "كبير",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "مشكل لحم",
+      "categoryId": 2,
+      "image": "images/مشكل لحم.jpg",
+      "basePrice": 23,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 23
+        },
+        {
+          "name": "كبير",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "بيبروني",
+      "categoryId": 2,
+      "image": "images/بيبروني.jpg",
+      "basePrice": 23,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 23
+        },
+        {
+          "name": "كبير",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "تونه",
+      "categoryId": 2,
+      "image": "images/تونه.jpg",
+      "basePrice": 20,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 20
+        },
+        {
+          "name": "كبير",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "دجاج",
+      "categoryId": 2,
+      "image": "images/دجاج.jpg",
+      "basePrice": 20,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 20
+        },
+        {
+          "name": "كبير",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "رنش",
+      "categoryId": 2,
+      "image": "images/رنش.jpg",
+      "basePrice": 23,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 23
+        },
+        {
+          "name": "كبير",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "خضار",
+      "categoryId": 2,
+      "image": "images/خضار.jpg",
+      "basePrice": 15,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 15
+        },
+        {
+          "name": "كبير",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "مارجريتا",
+      "categoryId": 2,
+      "image": "images/مارجريتا.jpg",
+      "basePrice": 15,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 15
+        },
+        {
+          "name": "كبير",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "سجق",
+      "categoryId": 2,
+      "image": "images/سجق.jpg",
+      "basePrice": 18,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 18
+        },
+        {
+          "name": "كبير",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "نقانق",
+      "categoryId": 2,
+      "image": "images/نقانق.jpg",
+      "basePrice": 17,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 17
+        },
+        {
+          "name": "كبير",
+          "price": 23
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "مشكل اجبان",
+      "categoryId": 2,
+      "image": "images/مشكل اجبان.jpg",
+      "basePrice": 15,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 15
+        },
+        {
+          "name": "كبير",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "صاروخ",
+      "categoryId": 3,
+      "image": "images/صاروخ.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "افتراضي",
+          "price": 8
+        },
+        {
+          "name": "كبير",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "شورما شامي",
+      "categoryId": 3,
+      "image": "images/شورما شامي.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "افتراضي",
+          "price": 8
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "بطاطس فرايز",
+      "categoryId": 3,
+      "image": "images/بطاطس فرايز.jpg",
+      "basePrice": 5,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 5
+        },
+        {
+          "name": "كبير",
+          "price": 10
+        }
+      ]
+    }
+  ]
+}
