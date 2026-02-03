@@ -24,6 +24,11 @@
       "id": 6,
       "name": "حلا وساخن",
       "image": "images/حلا وساخن.jpg"
+    },
+    {
+      "id": 7,
+      "name": "فطائر",
+      "image": "images/فطائر.jpg"
     }
   ],
   "products": [
@@ -56,7 +61,7 @@
           "price": 20
         },
         {
-          "name": "كبير",
+          "name": "دبل",
           "price": 25
         }
       ]
@@ -325,6 +330,269 @@
         },
         {
           "name": "كبير",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "بطيخ",
+      "categoryId": 4,
+      "image": "images/بطيخ.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "صغير",
+          "price": 8
+        },
+        {
+          "name": "وسط",
+          "price": 10
+        },
+        {
+          "name": "كبير",
+          "price": 13
+        },
+        {
+          "name": "علبه 1 لتر",
+          "price": 25
+        },
+        {
+          "name": "علبه 1.5 لتر",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "فطيرة طعميه",
+      "categoryId": 7,
+      "image": "images/فطيرة طعميه.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "فطيرة تونه",
+      "categoryId": 7,
+      "image": "images/فطيرة تونه.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "فطيرة لحم",
+      "categoryId": 7,
+      "image": "images/فطيرة لحم.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "name": "فطيرة زعتر",
+      "categoryId": 7,
+      "image": "images/فطيرة زعتر.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "name": "فطيرة خضار",
+      "categoryId": 7,
+      "image": "images/فطيرة خضار.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "name": "فطيرة مشكل اجبان",
+      "categoryId": 7,
+      "image": "images/فطيرة مشكل اجبان.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "name": "فطيرة لبنه زعتر",
+      "categoryId": 7,
+      "image": "images/فطيرة لبنه زعتر.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "name": "فطيرة سبانخ",
+      "categoryId": 7,
+      "image": "images/فطيرة سبانخ.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "فطيرة دجاج",
+      "categoryId": 7,
+      "image": "images/فطيرة دجاج.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "name": "فطيرة لبنه عسل",
+      "categoryId": 7,
+      "image": "images/فطيرة لبنه عسل.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "فطيرة جبنه مربا",
+      "categoryId": 7,
+      "image": "images/فطيرة جبنه مربا.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "name": "فطيرة بيض",
+      "categoryId": 7,
+      "image": "images/فطيرة بيض.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "name": "فطيرة بيض خضار",
+      "categoryId": 7,
+      "image": "images/فطيرة بيض خضار.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "name": "فطيرة طعميه سبايسي",
+      "categoryId": 7,
+      "image": "images/فطيرة طعميه سبايسي.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "name": "صحن كباب لحم",
+      "categoryId": 5,
+      "image": "images/صحن كباب لحم.jpg",
+      "basePrice": 30,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "name": "صحن كباب دجاج",
+      "categoryId": 5,
+      "image": "images/صحن كباب دجاج.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "name": "سندوتش كباب دجاج",
+      "categoryId": 5,
+      "image": "images/سندوتش كباب دجاج.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "name": "سندوتش كباب لحم",
+      "categoryId": 5,
+      "image": "images/سندوتش كباب لحم.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
           "price": 10
         }
       ]
