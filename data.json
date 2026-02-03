@@ -1527,6 +1527,473 @@
           "price": 20
         }
       ]
+    },
+    {
+      "id": 75,
+      "name": "قهوه سعوديه",
+      "categoryId": 6,
+      "image": "images/قهوه سعوديه.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 76,
+      "name": "كابتشينو",
+      "categoryId": 6,
+      "image": "images/كابتشينو.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 77,
+      "name": "شاي حليب",
+      "categoryId": 6,
+      "image": "images/شاي حليب.jpg",
+      "basePrice": 2,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 2
+        }
+      ]
+    },
+    {
+      "id": 78,
+      "name": "شاي",
+      "categoryId": 6,
+      "image": "images/شاي.jpg",
+      "basePrice": 1,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 1
+        }
+      ]
+    },
+    {
+      "id": 79,
+      "name": "امريكانو",
+      "categoryId": 6,
+      "image": "images/امريكانو.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "name": "شاي كرك",
+      "categoryId": 6,
+      "image": "images/شاي كرك.jpg",
+      "basePrice": 4,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 4
+        }
+      ]
+    },
+    {
+      "id": 81,
+      "name": "قهوه تركي",
+      "categoryId": 6,
+      "image": "images/قهوه تركي.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 82,
+      "name": "دولتشي",
+      "categoryId": 6,
+      "image": "images/دولتشي.jpg",
+      "basePrice": 12,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "name": "تشيز كيك",
+      "categoryId": 6,
+      "image": "images/تشيز كيك.jpg",
+      "basePrice": 12,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "id": 84,
+      "name": "كوكيز",
+      "categoryId": 6,
+      "image": "images/كوكيز.jpg",
+      "basePrice": 8,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 8
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "name": "بودنج",
+      "categoryId": 6,
+      "image": "images/بودنج.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "name": "وجبة الباشا",
+      "categoryId": 3,
+      "image": "images/وجبة الباشا.jpg",
+      "basePrice": 47,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 47
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "name": "وجبة المميز",
+      "categoryId": 3,
+      "image": "images/وجبة المميز.jpg",
+      "basePrice": 55,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 55
+        }
+      ]
+    },
+    {
+      "id": 88,
+      "name": "وجبة الكنج",
+      "categoryId": 3,
+      "image": "images/وجبة الكنج.jpg",
+      "basePrice": 27,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 27
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "name": "وجبة شاورما المذاق",
+      "categoryId": 3,
+      "image": "images/وجبة شاورما المذاق.jpg",
+      "basePrice": 18,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 18
+        },
+        {
+          "name": "المنعش",
+          "price": 27
+        }
+      ]
+    },
+    {
+      "id": 91,
+      "name": "صحن شامي",
+      "categoryId": 3,
+      "image": "images/صحن شامي.jpg",
+      "basePrice": 35,
+      "sizes": [
+        {
+          "name": "كبير",
+          "price": 35
+        },
+        {
+          "name": "ميني",
+          "price": 40
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "name": "كريب شاورما",
+      "categoryId": 3,
+      "image": "images/كريب شاورما.jpg",
+      "basePrice": 20,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "id": 93,
+      "name": "شاورما باشكا",
+      "categoryId": 3,
+      "image": "images/شاورما باشكا.jpg",
+      "basePrice": 25,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 94,
+      "name": "شاورما ميكس",
+      "categoryId": 3,
+      "image": "images/شاورما ميكس.jpg",
+      "basePrice": 55,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 55
+        }
+      ]
+    },
+    {
+      "id": 95,
+      "name": "برجر شاورما",
+      "categoryId": 3,
+      "image": "images/برجر شاورما.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        },
+        {
+          "name": "دبل",
+          "price": 18
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "name": "دلع كباب",
+      "categoryId": 5,
+      "image": "images/دلع كباب.jpg",
+      "basePrice": 50,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 50
+        }
+      ]
+    },
+    {
+      "id": 97,
+      "name": "صحن اوصال دجاج",
+      "categoryId": 5,
+      "image": "images/صحن اوصال دجاج.jpg",
+      "basePrice": 27,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 27
+        }
+      ]
+    },
+    {
+      "id": 98,
+      "name": "صحن سمك",
+      "categoryId": 5,
+      "image": "images/صحن سمك.jpg",
+      "basePrice": 35,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 35
+        }
+      ]
+    },
+    {
+      "id": 99,
+      "name": "صحن جمبري",
+      "categoryId": 5,
+      "image": "images/صحن جمبري.jpg",
+      "basePrice": 35,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 35
+        }
+      ]
+    },
+    {
+      "id": 100,
+      "name": "صحن زنجر",
+      "categoryId": 5,
+      "image": "images/صحن زنجر.jpg",
+      "basePrice": 25,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 101,
+      "name": "صحن ناجتس",
+      "categoryId": 5,
+      "image": "images/صحن ناجتس.jpg",
+      "basePrice": 25,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "name": "مشكل كباب",
+      "categoryId": 5,
+      "image": "images/مشكل كباب.jpg",
+      "basePrice": 30,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "name": "مدفع رمضان",
+      "categoryId": 5,
+      "image": "images/مدفع رمضان.jpg",
+      "basePrice": 100,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 100
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "name": "سندوتش اوصال دجاج",
+      "categoryId": 5,
+      "image": "images/سندوتش اوصال دجاج.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "name": "سندوتش جمبري",
+      "categoryId": 5,
+      "image": "images/سندوتش جمبري.jpg",
+      "basePrice": 15,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "name": "سندوتش سمك",
+      "categoryId": 5,
+      "image": "images/سندوتش سمك.jpg",
+      "basePrice": 15,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "name": "سندوتش زنجر",
+      "categoryId": 5,
+      "image": "images/سندوتش زنجر.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 108,
+      "name": "برجر دجاج",
+      "categoryId": 5,
+      "image": "images/برجر دجاج.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 109,
+      "name": "برجر زنجر",
+      "categoryId": 5,
+      "image": "images/برجر زنجر.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "id": 110,
+      "name": "سندوتش ناجتس",
+      "categoryId": 5,
+      "image": "images/سندوتش ناجتس.jpg",
+      "basePrice": 10,
+      "sizes": [
+        {
+          "name": "عادي",
+          "price": 10
+        }
+      ]
     }
   ]
 }
