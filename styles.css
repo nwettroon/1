@@ -736,16 +736,16 @@ body[dir="ltr"] .close-modal {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    max-height: 250px;
-    overflow-y: auto;
+    max-height: none;
+    overflow: visible;
 }
 
 .sizes-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    max-height: 250px;
-    overflow-y: auto;
+    max-height: none;
+    overflow: visible;
 }
 
 .size-item {
