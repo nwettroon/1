@@ -84,6 +84,7 @@ function setupEventListeners() {
     document.getElementById('adminBtn').addEventListener('click', openAdminModal);
     document.getElementById('closeAdmin').addEventListener('click', closeAdminModal);
     document.getElementById('exportDataBtn').addEventListener('click', exportData);
+    document.getElementById('resetInvoiceCounterBtn').addEventListener('click', resetInvoiceCounter);
     document.getElementById('addCategoryBtn').addEventListener('click', () => openAdminForm('category-add'));
     document.getElementById('addProductBtn').addEventListener('click', () => openAdminForm('product-add'));
     
@@ -487,7 +488,16 @@ function printInvoice() {
     }
     
     const date = new Date();
-    const invoiceNumber = 'INV-' + date.getTime();
+    // Persistent sequential invoice counter stored in localStorage
+    const counterKey = 'invoiceCounter';
+    let stored = parseInt(localStorage.getItem(counterKey) || '0', 10);
+    if (isNaN(stored) || stored < 1) {
+        stored = 1;
+    } else {
+        stored = stored + 1;
+    }
+    localStorage.setItem(counterKey, stored);
+    const invoiceNumber = String(stored);
     const dateStr = date.toLocaleDateString('ar-SA');
     const timeStr = date.toLocaleTimeString('ar-SA');
     
@@ -523,6 +533,23 @@ function printInvoice() {
                     margin: 10px 0;
                     text-align: left;
                 }
+                .invoice-number-row {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 6px;
+                }
+                .inv-label {
+                    font-size: 12px;
+                }
+                .inv-value {
+                    font-size: 16px;
+                    font-weight: 700;
+                    border: 1px solid #333;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    background: #f9f9f9;
+                }
                 .items {
                     margin: 15px 0;
                     border-top: 1px solid #ddd;
@@ -532,15 +559,34 @@ function printInvoice() {
                 .item {
                     display: flex;
                     justify-content: space-between;
-                    padding: 5px 0;
+                    align-items: center;
+                    padding: 6px 0;
                     font-size: 12px;
-                    text-align: left;
+                }
+                .item-left {
+                    display: flex;
+                    flex: 1;
+                    gap: 8px;
+                    align-items: center;
+                    justify-content: flex-end;
                 }
                 .item-name {
-                    flex: 1;
+                    font-size: 15px;
+                    font-weight: 600;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .item-qty {
+                    min-width: 36px;
+                    text-align: center;
+                    font-weight: 700;
                 }
                 .item-price {
-                    text-align: right;
+                    width: 100px;
+                    text-align: left;
+                    font-size: 13px;
+                    font-weight: 700;
                 }
                 .total {
                     display: flex;
@@ -562,9 +608,14 @@ function printInvoice() {
                     <h1>ثمرة المذاق المنعش</h1>
                 </div>
                 <div class="invoice-meta">
-                    <div>رقم الفاتورة: ${invoiceNumber}</div>
-                    <div>التاريخ: ${dateStr}</div>
-                    <div>الوقت: ${timeStr}</div>
+                    <div class="invoice-number-row">
+                        <span class="inv-label">رقم الفاتورة:</span>
+                        <span class="inv-value">${invoiceNumber}</span>
+                    </div>
+                    <div class="invoice-datetime">
+                        <div>التاريخ: ${dateStr}</div>
+                        <div>الوقت: ${timeStr}</div>
+                    </div>
                 </div>
                 <div class="items">
     `;
@@ -576,7 +627,10 @@ function printInvoice() {
         const size = item.size ? ` (${item.size})` : '';
         invoiceHTML += `
             <div class="item">
-                <span class="item-name">${item.productName}${size} × ${item.quantity}</span>
+                <div class="item-left">
+                    <span class="item-name">${item.productName}${size}</span>
+                    <span class="item-qty">× ${item.quantity}</span>
+                </div>
                 <span class="item-price">${itemTotal} ريال</span>
             </div>
         `;
@@ -592,24 +646,70 @@ function printInvoice() {
                     شكراً لتفضلكم بزيارتنا
                 </div>
             </div>
+            <script>
+                (function(){
+                    function doPrint(){
+                        try{ window.focus(); window.print(); }catch(e){}
+                    }
+                    if (typeof window !== 'undefined'){
+                        if ('onafterprint' in window){
+                            window.onafterprint = function(){ try{ window.close(); }catch(e){} };
+                        }
+                        window.onload = function(){ setTimeout(doPrint, 50); };
+                        // Fallback: close after 3s if onafterprint didn't run
+                        setTimeout(function(){ try{ window.close(); }catch(e){} }, 3000);
+                    }
+                })();
+            <\/script>
         </body>
         </html>
     `;
     
     const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+        alert('تم حظر النافذة المنبثقة للطباعة. سمح بفتح النوافذ المنبثقة ثم أعد المحاولة.');
+        return;
+    }
     printWindow.document.write(invoiceHTML);
     printWindow.document.close();
-    
-    setTimeout(function() {
-        printWindow.print();
-    }, 250);
-    
-    // Clear cart after printing
+
+    // When the print document finishes loading, trigger print and close the window.
+    const tryPrintAndClose = function() {
+        try {
+            printWindow.focus();
+            printWindow.print();
+        } catch (err) {
+            console.warn('print failed:', err);
+        }
+
+        // Prefer onafterprint when available to close the window after the print dialog.
+        if ('onafterprint' in printWindow) {
+            printWindow.onafterprint = function() {
+                try { printWindow.close(); } catch (e) {}
+            };
+        } else {
+            // Fallback: close shortly after calling print.
+            setTimeout(function() {
+                try { printWindow.close(); } catch (e) {}
+            }, 1000);
+        }
+    };
+
+    // If the new window has already loaded the content, run immediately, otherwise wait for load.
+    if (printWindow.document.readyState === 'complete') {
+        tryPrintAndClose();
+    } else {
+        printWindow.addEventListener('load', tryPrintAndClose);
+        // As an extra fallback, attempt to print after a short delay if load doesn't fire.
+        setTimeout(tryPrintAndClose, 500);
+    }
+
+    // Clear cart after printing (kept short delay as before)
     setTimeout(function() {
         cart = [];
         updateCartCount();
         closeCartModal();
-    }, 1000);
+    }, 1200);
 }
 
 // Admin Panel Functions
@@ -684,6 +784,12 @@ function openAdminForm(mode, id = null) {
     }
 
     modal.classList.add('active');
+}
+
+function resetInvoiceCounter() {
+    const counterKey = 'invoiceCounter';
+    localStorage.setItem(counterKey, '0');
+    alert('تمت إعادة تعيين عداد الفواتير إلى 0. الفاتورة التالية ستكون رقم 1');
 }
 
 function closeAdminForm() {
