@@ -87,11 +87,9 @@ body[dir="rtl"] {
     padding: 25px 20px;
     background-color: var(--white);
     border-bottom: 2px solid #f0e6d8;
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
+    z-index: 5;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
@@ -207,7 +205,7 @@ body[dir="rtl"] .admin-btn {
 
 /* Main Content */
 .main-content {
-    margin-top: 140px;
+    margin-top: 70px;
     padding: 0 0 100px 0;
     max-width: 1200px;
     margin-left: auto;
@@ -313,6 +311,7 @@ body[dir="rtl"] .cart-fixed {
 .cart-icon {
     font-size: 84px;
     line-height: 1;
+    order: 1;
 }
 
 .cart-fixed .cart-label {
@@ -321,6 +320,7 @@ body[dir="rtl"] .cart-fixed {
     font-weight: bold;
     pointer-events: none;
     line-height: 1;
+    order: 2;
 }
 
 /* Product Cards */
@@ -476,22 +476,24 @@ body[dir="ltr"] .cart-fixed {
     background-color: var(--emerald-green);
     color: var(--white);
     border: none;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+    width: 280px;
+    height: 100px;
+    border-radius: 0 30px 30px 0;
     cursor: pointer;
     font-size: 56px;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     position: relative;
     box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
     transition: var(--transition);
+    padding: 0 20px;
 }
 
 .cart-count {
-    position: absolute;
-    top: -16px;
+    positi20px;
+    right: 10;
     right: -16px;
     background-color: #e74c3c;
     color: var(--white);

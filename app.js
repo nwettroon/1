@@ -20,16 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
-    // Load data from localStorage
-    const savedData = localStorage.getItem('restaurantData');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        categories = data.categories || [];
-        products = data.products || [];
-    } else {
-        // Create default data if none exists
-        createDefaultData();
-    }
+    // Load data from data.json (centralized storage)
+    loadDataFromServer();
 }
 
 function createDefaultData() {
@@ -137,20 +129,39 @@ function formatPrice(value) {
     return `${formatNumber(value)} ريال`;
 }
 
+function loadDataFromServer() {
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            categories = data.categories || [];
+            products = data.products || [];
+            renderCategories();
+            renderProducts();
+        })
+        .catch(error => {
+            console.log('خطأ في تحميل البيانات:', error);
+            // استخدام البيانات الافتراضية في حالة الفشل
+            createDefaultData();
+        });
+}
+
 function loadData() {
-    const savedData = localStorage.getItem('restaurantData');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        categories = data.categories || categories;
-        products = data.products || products;
-    }
+    loadDataFromServer();
 }
 
 function saveData() {
-    localStorage.setItem('restaurantData', JSON.stringify({
-        categories,
-        products
-    }));
+    // إرسال البيانات إلى الخادم لحفظها
+    fetch('data.json', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            categories,
+            products
+        })
+    })
+    .catch(error => console.log('خطأ في حفظ البيانات:', error));
 }
 
 function exportData() {
