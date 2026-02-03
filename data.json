@@ -1,0 +1,8 @@
+{
+  "categories": [
+    { "id": 1, "name": "بيتزا", "image": "images/بيبروني.jpg" },
+    { "id": 2, "name": "الشورما", "image": "images/شورما.jpg" },
+    { "id": 3, "name": "عصائر", "image": "images/عصائر.jpg" }
+  ],
+  "products": []
+}

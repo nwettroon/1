@@ -91,6 +91,7 @@ function setupEventListeners() {
     // Admin
     document.getElementById('adminBtn').addEventListener('click', openAdminModal);
     document.getElementById('closeAdmin').addEventListener('click', closeAdminModal);
+    document.getElementById('exportDataBtn').addEventListener('click', exportData);
     document.getElementById('addCategoryBtn').addEventListener('click', () => openAdminForm('category-add'));
     document.getElementById('addProductBtn').addEventListener('click', () => openAdminForm('product-add'));
     
@@ -150,6 +151,21 @@ function saveData() {
         categories,
         products
     }));
+}
+
+function exportData() {
+    const data = { categories, products };
+    const dataStr = JSON.stringify(data, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'data.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    alert('تم تحميل ملف data.json بنجاح!');
 }
 
 function renderCategories() {
