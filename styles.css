@@ -224,15 +224,18 @@ body[dir="rtl"] {
 .language-btn {
     background-color: #0066cc;
     border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+    padding: 8px 18px;
+    border-radius: 25px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
     transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
 }
 
