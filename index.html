@@ -34,6 +34,7 @@
             <div id="categoriesList"></div>
         </div>
         <div class="controls-section">
+            <button class="view-toggle-btn" id="viewToggleBtn" title="تبديل العرض">☰</button>
             <button class="admin-btn" id="adminBtn" title="لوحة التحكم">⚙️</button>
         </div>
     </nav>
@@ -160,6 +161,16 @@
                     <input type="text" id="productName" placeholder="اسم المنتج (مثال: شاورما)" required>
                 </div>
 
+                <div class="form-section">
+                    <label>الشارة:</label>
+                    <select id="productBadge">
+                        <option value="">بدون شارة</option>
+                        <option value="new">🟢 جديد</option>
+                        <option value="best">🔴 الأكثر مبيعاً</option>
+                        <option value="offer">🟡 عرض خاص</option>
+                    </select>
+                </div>
+
                 <!-- فاصل للأحجام والأسعار -->
                 <div class="sizes-section-divider">
                     <h3 id="sizesAndPricesTitle">الأحجام والأسعار</h3>
@@ -211,6 +222,12 @@
             </form>
         </div>
     </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top-btn" id="scrollTopBtn" title="رجوع للأعلى">⬆</button>
 
     <script src="google-translate-controller.js"></script>
     <script src="app.js"></script>

@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     loadData();
     renderCategories();
     renderProducts();
+    setupViewToggle();
+    setupScrollToTop();
 });
 
 function initializeApp() {
@@ -193,7 +195,7 @@ function exportData() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    alert('تم تحميل ملف data.json بنجاح!');
+    showToast('تم تحميل ملف data.json بنجاح!', 'success');
 }
 
 function renderCategories() {
@@ -282,6 +284,44 @@ function renderProducts() {
                 const minPrice = product.sizes && product.sizes.length > 0
                     ? Math.min(...product.sizes.map(s => s.price))
                     : product.basePrice;
+
+                // Badge
+                if (product.badge) {
+                    if (product.badge === 'best') {
+                        // Fire effect for best seller
+                        card.classList.add('card-on-fire');
+                        
+                        // Fire particles
+                        const fireContainer = document.createElement('div');
+                        fireContainer.className = 'fire-particles';
+                        const fireEmojis = ['🔥', '🔥', '🔥', '🔥', '🔥', '🔥', '🔥', '🔥'];
+                        fireEmojis.forEach(emoji => {
+                            const particle = document.createElement('span');
+                            particle.className = 'fire-particle';
+                            particle.textContent = emoji;
+                            fireContainer.appendChild(particle);
+                        });
+                        card.appendChild(fireContainer);
+                        
+                        // Fire label
+                        const fireLabel = document.createElement('span');
+                        fireLabel.className = 'fire-label';
+                        fireLabel.textContent = '🔥 الأكثر مبيعاً';
+                        card.appendChild(fireLabel);
+                    } else {
+                        const badgeEl = document.createElement('span');
+                        const badgeMap = {
+                            'new': { class: 'badge-new', text: 'جديد' },
+                            'offer': { class: 'badge-offer', text: 'عرض خاص' }
+                        };
+                        const badgeInfo = badgeMap[product.badge];
+                        if (badgeInfo) {
+                            badgeEl.className = `product-badge ${badgeInfo.class}`;
+                            badgeEl.textContent = badgeInfo.text;
+                            card.appendChild(badgeEl);
+                        }
+                    }
+                }
 
                 const imgElement = document.createElement('img');
                 imgElement.className = 'product-image';
@@ -422,7 +462,67 @@ function addToCartDirectly(product, size, quantityChange) {
         });
     }
     
+    // Fly-to-cart animation on add
+    if (quantityChange > 0) {
+        flyToCartAnimation();
+    }
+    
     updateCartCount();
+}
+
+function flyToCartAnimation() {
+    const cartBtn = document.getElementById('cartBtn');
+    if (!cartBtn) return;
+    
+    // Get the last clicked button position
+    const clickedBtn = document.querySelector('.qty-btn:focus, .qty-btn:active');
+    let startX, startY;
+    
+    if (clickedBtn) {
+        const btnRect = clickedBtn.getBoundingClientRect();
+        startX = btnRect.left + btnRect.width / 2;
+        startY = btnRect.top + btnRect.height / 2;
+    } else {
+        // Fallback to center of modal
+        const modal = document.getElementById('productModal');
+        const modalRect = modal.getBoundingClientRect();
+        startX = modalRect.left + modalRect.width / 2;
+        startY = modalRect.top + modalRect.height / 2;
+    }
+    
+    const cartRect = cartBtn.getBoundingClientRect();
+    const endX = cartRect.left + cartRect.width / 2;
+    const endY = cartRect.top + cartRect.height / 2;
+    
+    // Create flying element
+    const flyEl = document.createElement('div');
+    flyEl.className = 'fly-to-cart';
+    flyEl.textContent = '+1';
+    flyEl.style.left = startX - 18 + 'px';
+    flyEl.style.top = startY - 18 + 'px';
+    document.body.appendChild(flyEl);
+    
+    // Trigger animation
+    requestAnimationFrame(() => {
+        flyEl.style.left = endX - 18 + 'px';
+        flyEl.style.top = endY - 18 + 'px';
+        flyEl.classList.add('animate');
+    });
+    
+    // Shake cart on arrival
+    setTimeout(() => {
+        const cartFixed = document.querySelector('.cart-fixed');
+        if (cartFixed) {
+            cartFixed.classList.remove('shake');
+            void cartFixed.offsetWidth; // force reflow
+            cartFixed.classList.add('shake');
+        }
+    }, 500);
+    
+    // Remove flying element
+    setTimeout(() => {
+        flyEl.remove();
+    }, 650);
 }
 
 function closeProductModal() {
@@ -499,7 +599,7 @@ function removeFromCart(index) {
 
 function printInvoice() {
     if (cart.length === 0) {
-        alert('السلة فارغة');
+        showToast('السلة فارغة', 'error');
         return;
     }
     
@@ -683,7 +783,7 @@ function printInvoice() {
     
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
-        alert('تم حظر النافذة المنبثقة للطباعة. سمح بفتح النوافذ المنبثقة ثم أعد المحاولة.');
+        showToast('تم حظر النافذة المنبثقة للطباعة. سمح بفتح النوافذ المنبثقة ثم أعد المحاولة.', 'error', 5000);
         return;
     }
     printWindow.document.write(invoiceHTML);
@@ -805,7 +905,7 @@ function openAdminForm(mode, id = null) {
 function resetInvoiceCounter() {
     const counterKey = 'invoiceCounter';
     localStorage.setItem(counterKey, '0');
-    alert('تمت إعادة تعيين عداد الفواتير إلى 0. الفاتورة التالية ستكون رقم 1');
+    showToast('تمت إعادة تعيين عداد الفواتير. الفاتورة التالية ستكون رقم 1', 'success');
 }
 
 function closeAdminForm() {
@@ -1049,10 +1149,13 @@ function renderAdminPanel() {
             const currentCategory = categories.find(c => c.id === product.categoryId);
             const categoryName = currentCategory ? currentCategory.name : 'غير محدد';
             
+            const badgeLabels = { 'new': '🟢 جديد', 'best': '🔴 الأكثر مبيعاً', 'offer': '🟡 عرض خاص' };
+            const badgeText = product.badge && badgeLabels[product.badge] ? ` | الشارة: ${badgeLabels[product.badge]}` : '';
+            
             productDiv.innerHTML = `
                 <div class="item-info">
                     <div class="item-name">${product.name}</div>
-                    <div class="item-image">القسم: ${categoryName} | السعر: ${formatPrice(product.basePrice)} | المقاسات: ${formatNumber(sizeCount)}</div>
+                    <div class="item-image">القسم: ${categoryName} | السعر: ${formatPrice(product.basePrice)} | المقاسات: ${formatNumber(sizeCount)}${badgeText}</div>
                     ${sizesHTML}
                 </div>
                 <div class="item-actions">
@@ -1087,7 +1190,7 @@ function deleteCategory(categoryId) {
     renderCategories();
     renderProducts();
     renderAdminPanel();
-    alert('تم الحذف بنجاح');
+    showToast('تم الحذف بنجاح', 'success');
 }
 
 function editProduct(productId) {
@@ -1104,6 +1207,10 @@ function openEditProductModal(productId) {
     // ملء بيانات النموذج
     const nameInput = document.getElementById('productName');
     if (nameInput) nameInput.value = product.name;
+
+    // ملء الشارة
+    const badgeSelect = document.getElementById('productBadge');
+    if (badgeSelect) badgeSelect.value = product.badge || '';
 
     // ملء قائمة الأقسام
     const categorySelect = document.getElementById('productCategory');
@@ -1231,7 +1338,7 @@ function saveEditedProduct(e) {
     e.preventDefault();
     
     if (!editingProductId) {
-        alert('خطأ: لم يتم تحديد المنتج');
+        showToast('خطأ: لم يتم تحديد المنتج', 'error');
         return;
     }
     
@@ -1243,17 +1350,17 @@ function saveEditedProduct(e) {
     
     // التحقق من البيانات
     if (!newName) {
-        alert('يجب إدخال اسم المنتج');
+        showToast('يجب إدخال اسم المنتج', 'error');
         return;
     }
     
     if (!categories.find(c => c.id === newCategoryId)) {
-        alert('يجب اختيار قسم صحيح');
+        showToast('يجب اختيار قسم صحيح', 'error');
         return;
     }
     
     if (!product.sizes || product.sizes.length === 0) {
-        alert('يجب إضافة حجم واحد على الأقل');
+        showToast('يجب إضافة حجم واحد على الأقل', 'error');
         return;
     }
     
@@ -1262,6 +1369,12 @@ function saveEditedProduct(e) {
     product.name = newName;
     product.categoryId = newCategoryId;
     product.basePrice = product.sizes[0].price;
+    
+    // تحديث الشارة
+    const badgeSelect = document.getElementById('productBadge');
+    if (badgeSelect) {
+        product.badge = badgeSelect.value || '';
+    }
 
     // If product has an image whose filename equals the old product name, update it to the new name
     if (product.image) {
@@ -1294,7 +1407,7 @@ function deleteProduct(productId) {
     saveData();
     renderProducts();
     renderAdminPanel();
-    alert('تم الحذف بنجاح');
+    showToast('تم الحذف بنجاح', 'success');
 }
 
 function addSizeToProduct(productId) {
@@ -1315,7 +1428,7 @@ function addSizeToProduct(productId) {
     saveData();
     renderProducts();
     renderAdminPanel();
-    alert('تم إضافة المقاس بنجاح');
+    showToast('تم إضافة المقاس بنجاح', 'success');
 }
 
 function editSize(productId, sizeIndex) {
@@ -1333,7 +1446,7 @@ function editSize(productId, sizeIndex) {
     saveData();
     renderProducts();
     renderAdminPanel();
-    alert('تم تعديل المقاس بنجاح');
+    showToast('تم تعديل المقاس بنجاح', 'success');
 }
 
 function deleteSize(productId, sizeIndex) {
@@ -1346,7 +1459,7 @@ function deleteSize(productId, sizeIndex) {
     saveData();
     renderProducts();
     renderAdminPanel();
-    alert('تم حذف المقاس بنجاح');
+    showToast('تم حذف المقاس بنجاح', 'success');
 }
 // Update UI System Messages when language changes
 function updateUIMessages(lang) {
@@ -1408,3 +1521,65 @@ window.updateSystemMessages = function(lang) {
     }
     updateUIMessages(lang);
 };
+
+// === Toast Notifications ===
+function showToast(message, type = 'info', duration = 3000) {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+    
+    const icons = {
+        success: '✅',
+        error: '❌',
+        info: 'ℹ️'
+    };
+    
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `<span class="toast-icon">${icons[type] || icons.info}</span><span>${message}</span>`;
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.classList.add('toast-hide');
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
+// === Grid/List View Toggle ===
+function setupViewToggle() {
+    const btn = document.getElementById('viewToggleBtn');
+    if (!btn) return;
+    
+    // Restore saved preference
+    const saved = localStorage.getItem('viewMode');
+    if (saved === 'list') {
+        document.getElementById('productsContainer').classList.add('list-view');
+        btn.textContent = '▦';
+        btn.title = 'عرض شبكي';
+    }
+    
+    btn.addEventListener('click', function() {
+        const container = document.getElementById('productsContainer');
+        const isList = container.classList.toggle('list-view');
+        btn.textContent = isList ? '▦' : '☰';
+        btn.title = isList ? 'عرض شبكي' : 'عرض قائمة';
+        localStorage.setItem('viewMode', isList ? 'list' : 'grid');
+    });
+}
+
+// === Scroll to Top ===
+function setupScrollToTop() {
+    const btn = document.getElementById('scrollTopBtn');
+    if (!btn) return;
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 400) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    });
+    
+    btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
