@@ -372,12 +372,13 @@ body[dir="ltr"] .category-section-title::after {
 }
 
 
-/* Cart Button: fixed bottom-right */
+/* Cart Button: fixed center-right */
 .cart-fixed {
     position: fixed;
-    bottom: 30px;
+    top: 50%;
     right: 20px;
     left: auto;
+    transform: translateY(-50%);
     z-index: 100;
     pointer-events: none;
     display: flex;
@@ -1328,7 +1329,7 @@ body[dir="ltr"] .close-modal {
     /* Cart button tablet */
     .cart-fixed {
         right: 15px;
-        bottom: 20px;
+        top: 50%;
     }
 
     .cart-btn {
@@ -1482,7 +1483,7 @@ body[dir="ltr"] .close-modal {
     /* Cart button mobile */
     .cart-fixed {
         right: 10px;
-        bottom: 15px;
+        top: 50%;
         gap: 8px;
     }
 
